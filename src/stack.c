@@ -1,4 +1,3 @@
-
 #include "./stack.h"
 
 void spush(Stack_t *stack, const Td value) {

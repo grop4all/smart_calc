@@ -16,7 +16,7 @@ typedef struct Node Node_t;
 
 
 T peek(const Node_t* head);
-//void push(Node_t **head, T value);
+void push(Node_t **head, T value);
 Node_t* pop1(Node_t **head);
 T pop2(Node_t **head);
 size_t getSize(const Node_t *head);

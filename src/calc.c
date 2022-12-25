@@ -1,9 +1,6 @@
 #include "./calc.h"
 
-#include <string.h>
 
-#include "./Node.h"
-#include "./stack.h"
 
 #define is_func(c) ((c <= 'A' && c >= 'Z') || (c >= 'a' && c <= 'z'))
 #define is_number(c) (c - '0' < 10 && c - '0' >= 0)
@@ -11,24 +8,21 @@
   (c == '+' || c == '-' || c == '/' || c == '*' || c == '!' || c == '=' || \
    c == '^')
 
-int preor_oper(char oper);
-char check_func(char *line);
-double couting(char *line);
 
-int main(int args, char **argv) {
-  char *line = "2-1-1";
+// int main(int args, char **argv) {
+//   char *line = "5*-2";
 
-  char *out = malloc(256);
+//   char *out = malloc(256);
 
-  pars(line, out);
-  printf("\nВывод: ");
-  printf("%s\n", out);
-  printf("%f", couting(out));
+//   pars(line, out);
+//   printf("\nВывод: ");
+//   printf("%s\n", out);
+//   printf("%f", couting(out));
 
-  //   printf("%c\n",check_func("cos(1231)"));
-  //   printf("%c\n",check_func("sin(1231)"));
-  //   printf("%c\n",check_func("atan(1231)"));
-}
+//   //   printf("%c\n",check_func("cos(1231)"));
+//   //   printf("%c\n",check_func("sin(1231)"));
+//   //   printf("%c\n",check_func("atan(1231)"));
+// }
 int calc(char *line) {}
 
 void conver_func(Stack_t *stack, char c) {
@@ -59,6 +53,9 @@ void conver_func(Stack_t *stack, char c) {
 	case '+':
 		rez = spop(stack) + spop(stack);
 		break;
+  case '*':
+    rez = spop(stack) * spop(stack);
+    break;
 	case '-':
 		val = spop(stack) ;
 		rez = spop(stack) - val;
@@ -70,11 +67,11 @@ void conver_func(Stack_t *stack, char c) {
 }
 
 char check_func(char *line) {
-  for (int i = 0; set_func[i].func_name != NULL; ++i) {
-    char *str = set_func[i].func_name;
+  for (int i = 0; set_funcution[i].func_name != NULL; ++i) {
+    char *str = set_funcution[i].func_name;
     // size_t n = strlen(str);
-    if (strncmp(line, set_func[i].func_name, strlen(str)) == 0)
-      return set_func[i].short_name;
+    if (strncmp(line, set_funcution[i].func_name, strlen(str)) == 0)
+      return set_funcution[i].short_name;
   }
   return ' ';
 }
@@ -117,6 +114,7 @@ int pars(char *line, char *out) {
   printf("line = %s\n", line);
   int status = 0;
   for (int i = 0; line[i] != '\0'; ++i) {
+    
     if (is_number(line[i]) || line[i] == '.') {
       *ptr++ = line[i];
       if (!is_number(line[i + 1]) && !(line[i + 1] == '.')) {
@@ -132,7 +130,7 @@ int pars(char *line, char *out) {
         if (peek(head) != '(') printf("Error ',' args");
       }
     } else if (is_operator(line[i])) {
-      while (preor_oper(peek(head)) > preor_oper(line[i]) &&
+      while (preor_oper(peek(head)) >= preor_oper(line[i]) &&
              is_operator(peek(head))) {
         *ptr++ = pop2(&head);
         *ptr++ = ',';
@@ -171,7 +169,7 @@ double couting(char *line) {
   char *ptr = strtok(line, strcep);
   while (ptr != NULL) {
     printf("%s\n", ptr);
-    if (atof(ptr)) 
+    if (atof(ptr) || *ptr == '0') 
 		spush(&stack, atof(ptr));
 
     if (is_func(*ptr) || is_operator(*ptr)) {

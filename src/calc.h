@@ -3,6 +3,8 @@
 #include <string.h>
 #include <math.h>
 
+#include "./Node.h"
+#include "./stack.h"
 
 #define MaxLemmaLen 7
 
@@ -13,8 +15,11 @@ typedef struct func {
 } t_func;
 
 int pars(char *line, char *out);
+int preor_oper(char oper);
+char check_func(char *line);
+double couting(char *line);
 
-t_func set_func[] = {
+t_func set_funcution[] = {
     {"cos", 'c',},
     {"sin", 's'},
     {"tan", 't'},
@@ -30,6 +35,5 @@ t_func set_func[] = {
 enum set_error {
     OK,
     link_null,
-    OUT_OF_MEMORY,
 };
 

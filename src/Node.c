@@ -41,13 +41,7 @@ T peek(const Node_t *head) {
   return head->value;
 }
 
-void printStack(const Node_t *head) {
-  printf("stack >");
-  while (head) {
-    printf("%d ", head->value);
-    head = head->next;
-  }
-}
+
 
 size_t getSize(const Node_t *head) {
   size_t size = 0;

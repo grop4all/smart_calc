@@ -1,11 +1,19 @@
+CFLAGS=-c -Wall -Wextra -std=c11 -g
+
+LIBS = -lcheck
+
+
+ifeq ($(shell uname), Linux)
+	LINUX_LIBS=-lsubunit -lrt -lpthread -lm
+endif
 
 all:
-	gcc -c -Wall -Wextra Node.c Node.h
-	gcc -c -Wall -Wextra stack.c stack.h
-	gcc -c -Wall -Wextra calc.c calc.h 
-	gcc *.o -lm -lrt -o calc
-	./calc "cos(0)"
-	
+	gcc $(CFLAGS) Node.c Node.h
+	gcc $(CFLAGS) stack.c stack.h
+	gcc $(CFLAGS) calc.c calc.h 
+	gcc calc_test.c  *.o -o out $(LIBS) $(LINUX_LIBS)
+	./out
+
 
 lint:
 	cp ../materials/linters/.clang-format .
