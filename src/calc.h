@@ -9,26 +9,20 @@
 typedef struct func {
     char* func_name;
     char short_name;
+
 } t_func;
 
 int pars(char *line, char *out);
 
 t_func set_func[] = {
-    {"cos", 'c'},
+    {"cos", 'c',},
     {"sin", 's'},
     {"tan", 't'},
     {"acos",'a'},
     {"asin", 'b'},
     {"atan", 'i'},
     {"ln", 'd'},
-    // "cos",
-    // "sin",
-    // "tan",
-    // "acos",
-    // "asin",
-    // "atan",
     // "sqrt",
-    // "ln",
     // "log",
     {NULL, 0}
 };
