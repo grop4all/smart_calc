@@ -41,8 +41,6 @@ T peek(const Node_t *head) {
   return head->value;
 }
 
-
-
 size_t getSize(const Node_t *head) {
   size_t size = 0;
   while (head) {

@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/nikita/C7_SmartCalc_v1.0-0/src",
+            "binaryPath": "/home/nikita/C7_SmartCalc_v1.0-0/src/out",
+            "binaryArgs": []
+        }
+    ]
+}

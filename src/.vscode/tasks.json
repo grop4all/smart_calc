@@ -7,9 +7,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${fileDirname}/stack.c",
+                "${fileDirname}/Node.c",
+                "${fileDirname}/calc.c",
+                "-lm",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",    
             ],
             "options": {
                 "cwd": "${fileDirname}"

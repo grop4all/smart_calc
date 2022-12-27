@@ -11,7 +11,7 @@ all:
 	gcc $(CFLAGS) Node.c Node.h
 	gcc $(CFLAGS) stack.c stack.h
 	gcc $(CFLAGS) calc.c calc.h 
-	gcc calc_test.c  *.o -o out $(LIBS) $(LINUX_LIBS)
+	gcc calc_test.c *.o -o out $(LIBS) $(LINUX_LIBS)
 	./out
 
 
