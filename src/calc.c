@@ -5,21 +5,28 @@
 #define is_operator(c) (c == '+' || c == '-' || c == '/' || c == '*' || c == '=' || c == '^' || c == '%')
 
 // int main(int args, char **argv) {
-//   char *line = "2^5";
+//   char *line = "2+56";
 
 //   char *out = malloc(256);
 
 //   pars(line, out);
 //   printf("\nВывод: ");
 //   printf("%s\n", out);
-//   printf("%f", couting(out));
+//   printf("%f", counting(out));
 
 //   //   printf("%c\n",check_func("cos(1231)"));
 //   //   printf("%c\n",check_func("sin(1231)"));
 //   //   printf("%c\n",check_func("atan(1231)"));
 
 // }
-int calc(char *line) {}
+
+double calc(char *line) {
+  char preref_str[256];
+  char out[256];
+  prerefactor(line,preref_str);
+  pars(preref_str, out);
+  return counting(out);
+}
 
 t_func set_funcution[] = {{
                               "cos",
@@ -92,6 +99,22 @@ void conver_func(Stack_t *stack, char c) {
     spush(stack, rez);
 }
 
+char* prerefactor(char *line, char *out) {
+  char *ptr_refactor_line = out;
+  for (int i = 0; line[i] != '\0'; ++i) {
+    if ( line[i] == '-') {
+      if (i == 0)
+        *ptr_refactor_line++ = '0';
+      if (line[i-1] == '(' ) {
+          *ptr_refactor_line++ = '0';
+      }
+    }
+    *ptr_refactor_line++ = line[i];
+  }
+  *ptr_refactor_line++ = '\0';
+  return out;
+}
+
 char check_func(char *line) {
   for (int i = 0; set_funcution[i].func_name != NULL; ++i) {
     char *str = set_funcution[i].func_name;
@@ -137,10 +160,7 @@ int preor_oper(char oper) {
 int pars(char *line, char *out) {
   Node_t *head = NULL;
   char *ptr = out;
-  printf("line = %s\n", line);
-  int status = 0;
   for (int i = 0; line[i] != '\0'; ++i) {
-
     if (is_number(line[i]) || line[i] == '.') {
       *ptr++ = line[i];
       if (!is_number(line[i + 1]) && !(line[i + 1] == '.')) {
@@ -192,7 +212,7 @@ int pars(char *line, char *out) {
   return 0;
 }
 
-double couting(char *line) {
+double counting(char *line) {
   char *strcep = ",";
   Stack_t stack;
   stack.size = 0;

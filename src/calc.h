@@ -12,10 +12,12 @@ typedef struct func {
 
 } t_func;
 
+double calc(char*line);
 int pars(char *line, char *out);
 int preor_oper(char oper);
 char check_func(char *line);
-double couting(char *line);
+double counting(char *line);
+char* prerefactor(char *line, char * out);
 
 enum set_error {
   OK,
