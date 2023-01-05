@@ -15,17 +15,13 @@ test:
 	./out
 
 
-gcov_report : 
-	@gcc  calc_test.c *.o  -o gcov_test --coverage $(LIBS) $(LINUX_LIBS)
-	@chmod +x gcov_test
-	@./gcov_test
-	lcov -t "gcov_test" -o gcov_test.info --no-external -c -d .
-	genhtml -o report/ gcov_test.info
-	- @open ./report/index.html
-
-
-
-
+gcov_report: calc_test.c 
+	clear
+	gcc calc_test.c *.o -o coverage.o -lcheck $(LINUX_LIBS) -fprofile-arcs -ftest-coverage  
+	./coverage.o
+	lcov -c -d . -o coverage.info
+	genhtml coverage.info -o coverage
+	open coverage/index.html
 
 
 lint:
@@ -40,6 +36,8 @@ cppcheck:
 
 
 clean:
+	- rm coverage.o coverage.info calc_test.gcda calc_test.gcno
+	- rm -rf coverage
 	- rm out
 	- rm *.o *.gch
 	- rm calc

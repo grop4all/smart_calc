@@ -58,6 +58,14 @@ START_TEST(RPN_6) {
 }
 END_TEST
 
+START_TEST(RPN_7) {
+  char *line = "1*(2+4";
+  char out[256];
+  pars(line, out);
+  ck_assert_int_eq(pars(line, out), 1);
+}
+END_TEST
+
 START_TEST(counting_1){
   char *line = "4*4";
   char out[256];
@@ -126,12 +134,22 @@ START_TEST(calc_3) {
 }
 END_TEST
 
+START_TEST(calc_4) {
+  char* line = "-2+56*acos(0.2)*cos(45/4)*56^2" ;
+  ck_assert_double_eq_tol(calc(line), 60528.2, 1e-6);
+}
+END_TEST
+
 Suite *s21_calc(void) {
   Suite *suite;
 
   suite = suite_create("s21_calc");
-
   TCase *tcase_RNP = tcase_create("RPN");
+  TCase *tcase_counting = tcase_create("Counting");
+  TCase *tcase_refactor= tcase_create("Refactor");
+  TCase *tcase_calc = tcase_create("calc");
+
+
   suite_add_tcase(suite, tcase_RNP);
   tcase_add_test(tcase_RNP, RPN_1);
   tcase_add_test(tcase_RNP, RPN_2);
@@ -140,25 +158,26 @@ Suite *s21_calc(void) {
   tcase_add_test(tcase_RNP, RPN_4);
   tcase_add_test(tcase_RNP, RPN_5);
   tcase_add_test(tcase_RNP, RPN_6);
+  tcase_add_test(tcase_RNP, RPN_7);
 
-  TCase *tcase_counting = tcase_create("Counting");
   suite_add_tcase(suite, tcase_counting);
   tcase_add_test(tcase_counting, counting_1);
   tcase_add_test(tcase_counting, couting_2);
   tcase_add_test(tcase_counting, couting_3);
   tcase_add_test(tcase_counting, couting_4);
 
-  TCase *tcase_refactor= tcase_create("Refactor");
+
   suite_add_tcase(suite, tcase_refactor);
   tcase_add_test(tcase_refactor, refactor_1);
   tcase_add_test(tcase_refactor, refactor_2);
 
 
-  TCase *tcase_calc = tcase_create("calc");
+
   suite_add_tcase(suite, tcase_calc);
   tcase_add_test(tcase_calc, calc_1);
   tcase_add_test(tcase_calc, calc_2);
   tcase_add_test(tcase_calc, calc_3);
+  tcase_add_test(tcase_calc, calc_4);
 
 
   return suite;

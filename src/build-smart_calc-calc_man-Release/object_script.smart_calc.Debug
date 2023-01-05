@@ -1,0 +1,10 @@
+debug/Node.o
+debug/calc.o
+debug/graf.o
+debug/main.o
+debug/mainwindow.o
+debug/qcustomplot.o
+debug/stack.o
+debug/moc_graf.o
+debug/moc_mainwindow.o
+debug/moc_qcustomplot.o

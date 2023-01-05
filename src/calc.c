@@ -14,9 +14,6 @@
 //   printf("%s\n", out);
 //   printf("%f", counting(out));
 
-//   //   printf("%c\n",check_func("cos(1231)"));
-//   //   printf("%c\n",check_func("sin(1231)"));
-//   //   printf("%c\n",check_func("atan(1231)"));
 
 // }
 
@@ -24,8 +21,10 @@ double calc(char *line) {
   char preref_str[256];
   char out[256];
   prerefactor(line,preref_str);
-  pars(preref_str, out);
-  return counting(out);
+  if (0 == pars(preref_str, out))
+    return counting(out);
+  else 
+    return NAN;
 }
 
 t_func set_funcution[] = {{
@@ -115,12 +114,14 @@ char* prerefactor(char *line, char *out) {
   return out;
 }
 
-char check_func(char *line) {
+char check_func(char *line , int *j) {
   for (int i = 0; set_funcution[i].func_name != NULL; ++i) {
     char *str = set_funcution[i].func_name;
-    // size_t n = strlen(str);
-    if (strncmp(line, set_funcution[i].func_name, strlen(str)) == 0)
+    size_t n = strlen(str);
+    if (strncmp(line, set_funcution[i].func_name, strlen(str)) == 0) {
+      *j += n;
       return set_funcution[i].short_name;
+    }
   }
   return ' ';
 }
@@ -167,7 +168,7 @@ int pars(char *line, char *out) {
         *ptr++ = ',';
       }
     } else if (is_func(line[i]) || line[i] == '(') {
-      char buff_name = check_func(line + i);
+      char buff_name = check_func(line + i, &i);
       if (buff_name != ' ')
         push(&head, buff_name);
       if (line[i] == '(')
@@ -176,7 +177,7 @@ int pars(char *line, char *out) {
       while (peek(head) != '(') {
         *ptr++ = pop2(&head);
         if (peek(head) != '(')
-          printf("Error ',' args");
+          return 1;
       }
     } else if (is_operator(line[i])) {
       while (preor_oper(peek(head)) >= preor_oper(line[i]) &&
@@ -198,13 +199,13 @@ int pars(char *line, char *out) {
         *ptr++ = ',';
       }
       if (getSize(head) == 0 && c != '(') {
-        printf("Error in ( )");
+        return 1;
       }
     }
   }
   while (peek(head) != '\2') {
     if (peek(head) == '(' || peek(head) == ')')
-      printf("Error in last peek");
+      return 1;
     *ptr++ = pop2(&head);
     *ptr++ = ',';
   }
@@ -218,7 +219,7 @@ double counting(char *line) {
   stack.size = 0;
   char *ptr = strtok(line, strcep);
   while (ptr != NULL) {
-    printf("%s\n", ptr);
+
     if (atof(ptr) || *ptr == '0')
       spush(&stack, atof(ptr));
     if (is_func(*ptr) || is_operator(*ptr)) {

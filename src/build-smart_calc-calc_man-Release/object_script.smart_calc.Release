@@ -1,0 +1,10 @@
+release/Node.o
+release/calc.o
+release/graf.o
+release/main.o
+release/mainwindow.o
+release/qcustomplot.o
+release/stack.o
+release/moc_graf.o
+release/moc_mainwindow.o
+release/moc_qcustomplot.o
