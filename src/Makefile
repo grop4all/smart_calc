@@ -38,6 +38,6 @@ cppcheck:
 clean:
 	- rm coverage.o coverage.info calc_test.gcda calc_test.gcno
 	- rm -rf coverage
-	- rm out
+	- rm a.out
 	- rm *.o *.gch
 	- rm calc

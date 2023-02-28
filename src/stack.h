@@ -2,7 +2,7 @@
 
 #define STACK_MAX_SIZE 50
 #define STACK_UNDERFLOW 1
-typedef double Td;
+typedef long double Td;
 
 typedef struct Stack_tag {
   Td data[STACK_MAX_SIZE];

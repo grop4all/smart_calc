@@ -11,11 +11,11 @@ typedef struct func {
   char short_name;
 } t_func;
 
-double calc(char*line);
+long double calc(char*line);
 int pars(char *line, char *out);
 int preor_oper(char oper);
 char check_func(char *line, int * i);
-double counting(char *line);
+long double counting(char *line);
 char* prerefactor(char *line, char * out);
 
 enum set_error {
