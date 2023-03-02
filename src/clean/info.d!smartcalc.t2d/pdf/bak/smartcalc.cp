@@ -1,2 +1,2 @@
-\entry{chapter, first}{1}{chapter, first}
-\entry{index entry, another}{1}{index entry, another}
+\entry{chapter, first}{2}{chapter, first}
+\entry{index entry, another}{2}{index entry, another}

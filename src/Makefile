@@ -3,6 +3,7 @@ CFLAGS=-c -Wall -Wextra -Werror -std=c11 -g
 LIBS = -lcheck
 
 TEXI2DVI = texi2dvi
+TEXI2PDF = texi2pdf
 infodir = info.d
 
 ifeq ($(shell uname), Linux)
@@ -31,7 +32,8 @@ gcov_report: calc_test.c
 dvi:
 	$(TEXI2DVI) --build-dir=clean $(infodir)/smartcalc.texi -o $(infodir)/smartcalc
 
-
+pdf:
+	$(TEXI2PDF) --build-dir=clean $(infodir)/smartcalc.texi -o $(infodir)/smartcalc
 
 lint:
 	cp ../materials/linters/.clang-format .

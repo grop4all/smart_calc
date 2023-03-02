@@ -1,4 +1,4 @@
 \initial {C}
-\entry{chapter, first}{1}
+\entry{chapter, first}{2}
 \initial {I}
-\entry{index entry, another}{1}
+\entry{index entry, another}{2}
