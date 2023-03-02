@@ -2,6 +2,8 @@ CFLAGS=-c -Wall -Wextra -Werror -std=c11 -g
 
 LIBS = -lcheck
 
+TEXI2DVI = texi2dvi
+infodir = info.d
 
 ifeq ($(shell uname), Linux)
 	LINUX_LIBS=-lsubunit -lrt -lpthread -lm
@@ -24,9 +26,18 @@ gcov_report: calc_test.c
 	open coverage/index.html
 
 
+
+
+
+
+dvi:
+	- $(TEXI2DVI) smartcalc.texi > $(infodir)/
+
 lint:
 	cp ../materials/linters/.clang-format .
-	clang-format -i *.c
+	clang-format -i *.c *.h
+	rm .clang-format
+
 
 leaks: all
 	valgrind --leak-check=full --show-leak-kinds=all --show-reachable=no --quiet --track-origins=yes ./out
