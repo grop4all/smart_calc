@@ -28,10 +28,10 @@ gcov_report: calc_test.c
 
 
 
-
-
 dvi:
-	- $(TEXI2DVI) smartcalc.texi > $(infodir)/
+	$(TEXI2DVI) --build-dir=clean $(infodir)/smartcalc.texi -o $(infodir)/smartcalc
+
+
 
 lint:
 	cp ../materials/linters/.clang-format .
